@@ -1,0 +1,31 @@
+Parameters:
+  BucketNameParameter:
+    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-.]*[0-9a-zA-Z])*$
+    ConstraintDescription: Bucket name can include numbers, lowercase letters, uppercase letters, periods (.), and hyphens (-). It cannot start or end with a hyphen (-).
+    Type: String
+    Description: Globally unique bucket name using characters and dashes.
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketNameParameter
+      VersioningConfiguration:
+        Status: Enabled
+      AccessControl: Private
+      # DeleteionPolicy: Retain
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration: 
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256        
+Outputs:
+  BucketArn:
+    Value: 
+      !GetAtt
+        - S3Bucket
+        - Arn
+    Description: Arn of the Amazon S3 bucket.

@@ -1,0 +1,15 @@
+# Compiled files
+*.tfstate*
+.terraform
+
+# Module directory
+.idea
+*.iml
+.build-harness
+build-harness
+
+# OSX
+.DS_Store
+
+# List of open tasks
+TODO.md
